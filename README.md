@@ -5,3 +5,4 @@ Minha proposta busca utilizar sensores e alertas para ajudar no bem estar da saÃ
 - Sensor de Umidade/temperatura;
 - Buzzer e LED;
 
+![img](/imagem.jpg)
