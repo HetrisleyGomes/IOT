@@ -5,4 +5,6 @@ Minha proposta busca utilizar sensores e alertas para ajudar no bem estar da sa�
 - Sensor de Umidade/temperatura;
 - Buzzer e LED;
 
-![img](/imagem.jpg)
+![img](/image.png)
+
+O sensor é a caixa azul da esquerda, na direita em cima tem os LEDs que irão mostrar a aridez no momento, e abaixo do LED tem o buzzer.
