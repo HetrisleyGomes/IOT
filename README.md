@@ -22,4 +22,4 @@ Devido a medidas sanitária vindas após a pandemia do corona virus, o toque em 
 - Sensor de próximidade;
 - Emisor e receptor;
 
-
+![img](/imagem_02.png)
