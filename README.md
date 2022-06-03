@@ -24,4 +24,4 @@ Devido a medidas sanitária vindas após a pandemia do corona virus, o toque em 
 
 ![img](/imagem_02.gif)
 
-O componente verde é o interruptor com o sensor de proximidade (representado pelo ponto vermelho), temos uma lâmpada, e conectado a eles temos um emissor e um recepitor de sinal.
+O componente verde é o interruptor com o sensor de proximidade (representado pelo ponto vermelho), temos uma lâmpada, e conectado a eles temos um emissor e um recepitor de sinal, representados pela cor azul.
