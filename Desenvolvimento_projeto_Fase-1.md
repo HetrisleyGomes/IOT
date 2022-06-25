@@ -68,7 +68,7 @@ O estudo sobre os sensores e sua implementação ainda não foram concluídas, p
 
 A montagem do Dispositivo de medição foi a parte mais fácil, o sistema de medição em si foi onde encontramos mais dificuldades, principalmente no desenvolvimento do cálculo de medição do Índice de Temperatura-Umidade (ITU).
 
-Futuramente depois da correção de erros planejamos atualizar algumas funções do dispositivo, como: Integração com outros dispositivos e Integração para um aplicativo mobile onde terão informações mais detalhadas.
+Futuramente depois da correção de erros planejamos atualizar algumas funções do dispositivo, como: Integração com outros dispositivos e Integração para um aplicativo mobile onde terão informações mais detalhadas, como registros máximos e mínimos da temperatura e umidade.
 
 ## Referências
 
