@@ -63,3 +63,20 @@ A montagem do Dispositivo de medição foi a parte mais fácil, o sistema de med
 Futuramente depois da correção de erros planejamos atualizar algumas funções do dispositivo, como: Integração com outros dispositivos e Integração para um aplicativo mobile onde terão informações mais detalhadas.
 
 ## Referências
+
+BERTONCELLO, Soraya Damasio. **IoT**: sensores que facilitam a vida. 2020. Disponível em: https://www.novus.com.br/blog/artigo-iot-sensores-que-facilitam-a-vida/. Acesso em: 24 jun. 2022.
+
+ABREU, Leandro. **Sensores IoT**: Como funcionam, quais são e como beneficiam a sua vida e as empresas. 2022. Disponível em: https://rockcontent.com/br/blog/sensores-iot/. Acesso em: 24 jun. 2022.
+
+GRIMM, Alice Marlene. **Temperatura**: índices de desconforto humano. ÍNDICES DE DESCONFORTO HUMANO. 2022. Disponível em: https://fisica.ufpr.br/grimm/aposmeteo/cap3/cap3-4.html. Acesso em: 24 jun. 2022.
+
+THOMSEN, Adilson. **Monitorando Temperatura e Umidade com o sensor DHT11**. 2013. Disponível em: https://www.filipeflop.com/blog/monitorando-temperatura-e-umidade-com-o-sensor-dht11/. Acesso em: 24 jun. 2022.
+
+INDUSTRIES, Adafruit. **Adafruit: dht-sensor-library. dht-sensor-library**. 2021. Disponível em: https://github.com/adafruit/DHT-sensor-library. Acesso em: 24 jun. 2022.
+
+INDUSTRIES, Adafruit. **Adafruit: adafruit_sensor. Adafruit_Sensor**. 2022. Disponível em: https://github.com/adafruit/Adafruit_Sensor. Acesso em: 24 jun. 2022.
+
+INSTRUSUL (org.). **Termômetro Digital com Sensor Externo e Alarme com Certificado de Calibração Incoterm**. Disponível em: https://www.instrusul.com.br/produto/termometro-digital-com-sensor-externo-e-alarme-com-certificado-de-calibracao-incoterm-7427-02-0-00-19447. Acesso em: 25 jun. 2022.
+
+PRODUTOS, Tudo Sobre (org.). **Termômetro Medidor Temperatura Umidade Interno e Externo com Higrômetro Htc-2A**. Disponível em: https://tudosobreprodutos.com.br/tudo-sobre-termometro-medidor-temperatura-umidade-interno-e-externo-com-higrometro-htc-a#Pros_e_Contras. Acesso em: 25 jun. 2002.
+
