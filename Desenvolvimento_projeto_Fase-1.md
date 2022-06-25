@@ -43,10 +43,19 @@ Analisar a temperatura e umidade para fornecer informações de alerta sobre o c
 
 ## Metodologia 
 
-Após montarmos a parte física das coisas, começamos o desenvolvimento do sistema, utilizando o exemplo dado pelo site: [filipeflop](https://www.filipeflop.com/blog/monitorando-temperatura-e-umidade-com-o-sensor-dht11/), configuramos o que tínhamos com o que era necessário, como o sistema de luzes, mas tivemos o primeiro problema, precisávamos de uma biblioteca para o arduino saber como interpretar o componente DHT11, no próprio site onde estávamos pegando as informações tinha um link para o repositório Github do “DHT-sensor-library”, baixamos conforme a imagem 01, descompactamos, renomeamos para DHT (isto é uma ação necessária para o funcionamento) e colocamos na pasta libraries do arquivo do arduino, conforme a imagem 02, mas isso gerou o segundo problema, tivemos problema na parte de permissões do computador, para resolver isso tivemos que baixar uma nova versão do arduino, onde tínhamos permissão para realizar alterações, com a biblioteca instalada e o código pronto, rodamos novamente o teste, porém ele falhou, a biblioteca DHT11 precisava de uma dependência a mais, a “Adafruit_Sensor”, nós conseguimos encontrar o link para essa dependência no próprio link onde encontramos o DHT11, baixamos, conforme a imagem 01, anexando a dependência do Adafruit as bibliotecas do arduino e rodamos o código novamente, finalmente obtivemos sucesso.
+Após montarmos a parte física das coisas, começamos o desenvolvimento do sistema, utilizando o exemplo dado pelo site: [filipeflop](https://www.filipeflop.com/blog/monitorando-temperatura-e-umidade-com-o-sensor-dht11/), configuramos o que tínhamos com o que era necessário, como o sistema de luzes, mas tivemos o primeiro problema, precisávamos de uma biblioteca para o arduino saber como interpretar o componente DHT11, no próprio site onde estávamos pegando as informações tinha um link para o repositório Github do “DHT-sensor-library”, baixamos conforme a imagem 01, descompactamos, renomeamos para DHT (isto é uma ação necessária para o funcionamento) e colocamos na pasta libraries do arquivo do arduino, conforme a imagem 02, mas isso gerou o segundo problema, tivemos problema na parte de permissões do computador, para resolver isso tivemos que baixar uma nova versão do arduino, onde tínhamos permissão para realizar alterações, com a biblioteca instalada e o código pronto, rodamos novamente o teste, porém ele falhou, a biblioteca DHT11 precisava de uma dependência a mais, a “Adafruit_Sensor”, nós conseguimos encontrar o link para essa dependência no próprio link onde encontramos o DHT11, baixamos, conforme a imagem 01, anexando a dependência do Adafruit as bibliotecas do arduino e rodamos o código novamente, finalmente obtivemos sucesso. O nosso dispositivo estava funcional e operante, conforme a imagem 03,  agora só precisaremos ajustar o modelo de cálculo de temperatura.
 
 Imagem 01: Downloads DHT-sensor-library-master
-!{Imagem01}(/)
+
+<img src="/images/image1.png" style="width: 400px"/>
+
+Imagem 02: Pastas do programa Arduino
+
+<img src="/images/image2.png" style="width: 400px"/>
+
+Imagem 03: Sucesso na implementação inicial
+
+<img src="/images/Funcionando.jpeg" style="width: 400px"/>
 
 ### Funcionamento:
 
