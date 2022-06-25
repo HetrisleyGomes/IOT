@@ -43,9 +43,18 @@ O sensor funcionará continuamente, analisando a temperatura e umidade do ar, on
 
 Onde quando as condições forem favoráveis o led acesso será verde, condições de desconforto moderado acenderá o led amarelo, e situações com grandes desconfortos será acesso o led vermelho juntamente com um alerta sonoro.
 
+### Potencial tecnológico comparativo
+Em relação a Higrômetro HTC-2A, que segundo Produtos (2022), que registra temperaturas máximas e mínimas, com opção de relógio, mede escala de 0ºC a 50ºC e umidade de 10% rh variando a 99% rh, mas não possui despertador.
+
+E o produto de Termômetro Digital com Sensor Externo e Alarme, que segundo Instrusul (2022), ele faz monitoramento da temperatura, memoriza as máximas e mínimas e mede a temperatura externa com faixa de -50ºC a 70ºC.
+
+Nosso produto como vantagem em relação a Higrômetro, irá despertar assim que a temperatura chegar ao máximo da capacidade que o corpo suporta, para assim podermos fazer a hidratação, já com relação ao Termômetro Digital com Sensor Externo e Alarme, a nossa poderá chegar a medir a temperatura máxima de 100ºC.
+
+Em relação a desvantagem, a princípio não possui registros máximos e mínimos e opção de relógio.
+
 ## Conclusões
 
-
+O estudo sobre os sensores e sua implementação ainda não foram concluídas, precisamos implementar mais ferramentas que integrem a seu funcionamento, mas desde então, estamos conseguindo obter conhecimento partindo do básico sobre os  sensores e suas peças que juntos fazem o projeto, para que possamos melhorar e possamos alcançar alcançar e ir além das expectativas dos que consomem e além daqueles que ainda chegaram a ser futuros usuários.
 
 ## Trabalhos Futuros
 
