@@ -1,5 +1,5 @@
 
-## INTRODUÇÃO    
+## Introdução  
 
 Hoje em dia, as pessoas prezam por um bem-estar e estarem seguras seja qual espaço que estejam requerendo o bom tratamento ou estando em um lugar que elas se sintam à vontade, diante disso, elas podem contar com o apoio da Internet das Coisas, que segundo Bertoncello (2020), são dispositivos conectados à internet que enviam dados para serem manipulados, visando sempre que possível trazer melhores retornos para os usuários.
 
