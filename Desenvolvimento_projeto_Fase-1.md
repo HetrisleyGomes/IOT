@@ -56,6 +56,7 @@ Imagem 02: Pastas do programa Arduino
 Imagem 03: Sucesso na implementação inicial
 
 <img src="/images/Funcionando.jpeg" style="width: 400px"/>
+Fonte: Autoria própria (2022)
 
 ### Funcionamento:
 
