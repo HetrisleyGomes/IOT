@@ -48,10 +48,12 @@ Após montarmos a parte física das coisas, começamos o desenvolvimento do sist
 Imagem 01: Downloads DHT-sensor-library-master
 
 <img src="/images/imagem1.png" style="width: 400px"/>
+Fonte: Autoria própria (2022)
 
 Imagem 02: Pastas do programa Arduino
 
 <img src="/images/imagem2.png" style="width: 400px"/>
+Fonte: Autoria própria (2022)
 
 Imagem 03: Sucesso na implementação inicial
 
