@@ -43,10 +43,14 @@ O sensor funcionará continuamente, analisando a temperatura e umidade do ar, on
 
 Onde quando as condições forem favoráveis o led acesso será verde, condições de desconforto moderado acenderá o led amarelo, e situações com grandes desconfortos será acesso o led vermelho juntamente com um alerta sonoro.
 
-### Trabalhos Futuros:
+## Conclusões
+
+
+
+## Trabalhos Futuros
 
 A montagem do Dispositivo de medição foi a parte mais fácil, o sistema de medição em si foi onde encontramos mais dificuldades, principalmente no desenvolvimento do cálculo de medição do Índice de Temperatura-Umidade (ITU).
 
 Futuramente depois da correção de erros planejamos atualizar algumas funções do dispositivo, como: Integração com outros dispositivos e Integração para um aplicativo mobile onde terão informações mais detalhadas.
 
-
+## Referências
