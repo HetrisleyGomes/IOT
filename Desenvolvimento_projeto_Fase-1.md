@@ -75,7 +75,7 @@ Em relação a desvantagem, a princípio não possui registros máximos e mínim
 
 ## Conclusões
 
-O estudo sobre os sensores e sua implementação ainda não foram concluídas, precisamos implementar mais ferramentas que integrem a seu funcionamento, mas desde então, estamos conseguindo obter conhecimento partindo do básico sobre os  sensores e suas peças que juntos fazem o projeto, para que possamos melhorar e possamos alcançar alcançar e ir além das expectativas dos que consomem e além daqueles que ainda chegaram a ser futuros usuários.
+O estudo sobre os sensores e sua implementação ainda não foram concluídas, precisamos implementar mais ferramentas que integrem a seu funcionamento, mas desde então, estamos conseguindo obter conhecimento partindo do básico sobre os  sensores e suas peças que juntos fazem o projeto, para que possamos melhorar e possamos alcançar e ir além das expectativas dos que consomem e além daqueles que ainda chegaram a ser futuros usuários.
 
 ## Trabalhos Futuros
 
