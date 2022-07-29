@@ -55,13 +55,22 @@ Com um protocolo MQTT, as informações de temperatura são coletadas e armazena
 
 ***como usar o mqtt***
 
-- Quais requisitos para utilização?
+O protocolo MQTT é principalmente utilizado em aplicações de IoT, devido a sua simplicidade e facilidade de implementação. Além de IoT, alguns usos muito comuns são para a obetenção de dados em tempo real. Podemos citar o protocolo MQTT sendo utilizado para se obter informações da temperatura e nível de umidade do solo.
 
-- Quais passos técnicos para utilizar? Descreva claramente o(s) exemplo(s).
+Os usos desse protocolo depende apenas da criatividade do desenvolvedor. Podem ser criados sistemas de controle de mercadorias, automação de processos, controle de fluxo de pessoas, controle para eficiência energética, entre muitos outros.
 
+- Quais requisitos para utilização e quais passos técnicos para utilizar? (*Descreva claramente o(s) exemplo(s)*)
+
+Existem inúmeras implementações tanto para brokers como para clientes MQTT em diversas linguagens, como Python, JavaScript, C#, entre outros. Podemos encontrar facilmente várias dessas implementações na internet, sendo boa parte delas open source e de fácil acesso e download pelo público. Uma dessas implementações é o broker Mosquitto. Sendo um dos brokers mais utilizados atualmente devido à sua simplicidade e facilidade de implementação, esta tecnologia open source ganhou um grande espaço no mercado de IoT por estar intimamente relacionado com o protocolo MQTT.
+
+Ao baixar o broker escolhido, este vai ser utilizado para rodar o servidor onde o sistema e o relacionamento entre os clientes e o broker será hospedado. 
+
+Vários sistemas podem ser utilizados como clientes deste protocolo. Podemos utilizar sensores, que pegariam alguns dados do ambiente e os enviariam pro broker, por exemplo. Podemos usar um RaspberryPi, que pegaria esses dados do broker para controlar alguma máquina. 
 
 ### Estudo de caso do projeto da disciplina
 - Como pode ser empregado no seu projeto? Como poder ser a comunicação com o dispositivo programado (arduino/Esp8266/Raspberry/...)?
+
+Pode ser usado para analisar e armazenar os dados de temperatura e humidade
 
 ***Como usar o MQTT no nosso projeto***
 
