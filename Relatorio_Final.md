@@ -27,22 +27,22 @@ Utilizando para fazer conexão com o node-red e suporte para obter informações
 
 1. DHT11:<br/>
 Um dos componentes bases para essa prototipação, DHT11, segundo Blogdarobotica (2020), [...] é um sensor capaz de medir a temperatura e a umidade do ambiente”. Blogdarobotica afirma que é formado por duas partes principais: “[...] um sensor de umidade capacitivo e um sensor de temperatura termistor NTC, isto é um resistor sensível à variação de temperatura”.
-No DHT11, representado na figura 01, tem o VCC que significa Corrente de tensão contínua, que normalmente está ligada à alimentação. O Dados, segundo Blogdarobotica (2022) “[...] é o pino de comunicação de dados, será através dele que o valor da temperatura e umidade serão comunicados a placa microcontroladora”. O N.C é um pino vazio, que não será utilizado e o GND se refere ao terminal terra.
+No DHT11, tem o pino VCC que significa Corrente de tensão contínua, que normalmente está ligada à alimentação. O Dados, segundo Blogdarobotica (2022) “[...] é o pino de comunicação de dados, será através dele que o valor da temperatura e umidade serão comunicados a placa microcontroladora”. O N.C é um pino vazio, que não será utilizado e o GND se refere ao terminal terra.
 
 1. MQTT:<br/>
 Considerando o MQTT um dos protocolos bastante utilizado na Internet das coisas, segundo Imasters (2022). Ele diz que o MQTT faz uso de “[...] um modelo leve de publicação/assinatura de mensagens, o que é ideal para a conectividade máquina-máquina (M2M)”, utilizando sensores de baixa potência e como faz a comunicação com dispositivos móveis para ver as mensagens advindos dos pacotes transitados.Este protocolo utiliza o broker, que segundo Kalatec (2022), ele é como intermediário e “[...] tem o papel de filtrar todas as mensagens, recebendo-as, enfileirando-as e distribuindo-as para cada assinante, que irá receber somente as mensagens de seu interesse”.
 
 ### PROJETO ARDUINO 
 
-Para o protótipo  com arduino, tivemos como base o exemplo dado pelo blog filipeflop, configuramos o que tínhamos com o que era necessário, como o sistema de luzes, mas tivemos o primeiro problema, precisávamos de uma biblioteca para o arduino saber como interpretar o componente DHT11. Para conseguir essa biblioteca, no próprio site que tinha o link para o repositório do “DHT-sensor-library”, baixamos conforme a figura 01 descompactamos, renomeamos para DHT (isto é uma ação necessária para o funcionamento) e colocamos na pasta libraries do arquivo do arduino, conforme a figura 03:
+Para o protótipo  com arduino, tivemos como base o exemplo dado pelo blog filipeflop, configuramos o que tínhamos com o que era necessário, como o sistema de luzes, mas tivemos o primeiro problema, precisávamos de uma biblioteca para o arduino saber como interpretar o componente DHT11. Para conseguir essa biblioteca, no próprio site que tinha o link para o repositório do “DHT-sensor-library”, baixamos, o descompactamos, renomeamos para DHT (isto é uma ação necessária para o funcionamento) e colocamos na pasta libraries do arquivo do arduino.
 
 Continuando a configuração, nos deparamos com o segundo problema, as permissões do computador.  Para resolver,  tivemos que baixar uma nova versão do arduino.
 Após o download, conseguimos permissão para realizar alterações, com a biblioteca instalada e o código pronto, rodamos novamente o teste, porém ele falhou, a biblioteca DHT11 precisava de uma dependência a mais, a “Adafruit_Sensor”.
-Na busca, conseguimos encontrar o link para essa dependência no próprio link onde encontramos o DHT11, fizemos downloads, conforme a figura 02, anexando a dependência do Adafruit as bibliotecas do arduino. 
-Após o processo, rodamos o código novamente, finalmente obtivemos sucesso. O nosso dispositivo estava funcional e operante, conforme a figura 04,  agora só precisaremos ajustar o modelo de cálculo de temperatura.
-Figura 04: Sucesso na implementação inicialFonte: Autoria própria (2022)
 
-Neste protótipo da figura 04,  o sensor funcionará continuamente, analisando a temperatura e umidade do ar, onde será feito o cálculo do Índice de Temperatura e Umidade (ITU), então liga-se um Led correspondente às condições climáticas atuais.
+Na busca, conseguimos encontrar o link para essa dependência no próprio link onde encontramos o DHT11, fizemos downloads, anexando a dependência do Adafruit as bibliotecas do arduino. 
+Após o processo, rodamos o código novamente, finalmente obtivemos sucesso. O nosso dispositivo estava funcional e operante, agora só precisaremos ajustar o modelo de cálculo de temperatura.
+
+Neste protótipo,  sensor funcionará continuamente, analisando a temperatura e umidade do ar, onde será feito o cálculo do Índice de Temperatura e Umidade (ITU), então liga-se um Led correspondente às condições climáticas atuais.
 Quando as condições forem favoráveis o led acesso será verde, condições de desconforto moderado acenderá o led amarelo, e situações com grandes desconfortos será acesso o led vermelho juntamente com um alerta sonoro.
 
 ### PROJETO NODE-RED
@@ -82,5 +82,8 @@ No Node-Red foram utilizados 15 nodes para construção do ambiente gráfico, co
 Sobre a codificação para fazer conexão com ESP8266, bem como o LED e sensor DHT11, presente no Arduino IDE, segue a seguir suas principais pontos:
 Os quadros de 1 a 7 servem como declarações constantes a serem utilizados no desenvolvimento: 
 O quadro 1 demonstra as bibliotecas que precisavam ser utilizadas como ESP8266, PubSubCliente que permite que ESP8266 faça a comunicação com o Node-RED e o sensor de temperatura e umidade, o DHT.
+```C
+
+```
 
 
