@@ -76,14 +76,362 @@ No Node-Red foram utilizados 15 nodes para construção do ambiente gráfico, co
 - Alerta Umid: Mensagem de notificação "Umidade baixa, lembre-se de se hidratar!"   
 - Alerta Umid Min: Mensagem de notificação "Umidade baixíssima! Se hidrate!”
 
-### Chart Node
+#### Chart Node
 - Índice de Calor: Exibirá a leitura do sensor
+
+### CODIFICAÇÃO DO PROJETO
 
 Sobre a codificação para fazer conexão com ESP8266, bem como o LED e sensor DHT11, presente no Arduino IDE, segue a seguir suas principais pontos:
 Os quadros de 1 a 7 servem como declarações constantes a serem utilizados no desenvolvimento: 
-O quadro 1 demonstra as bibliotecas que precisavam ser utilizadas como ESP8266, PubSubCliente que permite que ESP8266 faça a comunicação com o Node-RED e o sensor de temperatura e umidade, o DHT.
-```C
 
+Nesse quadro demonstra as bibliotecas que precisavam ser utilizadas como ESP8266, PubSubCliente que permite que ESP8266 faça a comunicação com o Node-RED e o sensor de temperatura e umidade, o DHT.
+```C
+#include <ESP8266WiFi.h>          //Biblioteca para funcionamento do WiFi do ESP8266
+#include <PubSubClient.h>
+#include "DHT.h"
+```
+
+Nesse quadro são demonstradas as constantes utilizadas para fazer conexão com o ESP8266, tais como o DHTPIN que está conectado à pinagem 2 e DHTTYPE que está conectado ao DHT11.
+```C
+#define INTERVALO_ENVIO 1000
+#define DHTPIN 2                       // pino que estamos conectado o sensor
+#define DHTTYPE DHT11          // DHT 11
+```
+
+Nesse quadro demonstramos o uso dos sensores DHT como parâmetro, para serem utilizados na função de leitura do sensor, principalmente no quadro 13.
+```C
+DHT dht(DHTPIN, DHTTYPE);
+```
+
+Nesse quadro Foram utilizados conexão Wifi, fornecidos pelo docente em sala, para fazer a ligação com a placa ESP8266, como demonstrado o login e senha
+```C
+const char* ssid = "v2g";                           // Rede WiFi
+const char* password = "qwertyuiop";
+```
+
+Para utilizar o servidor em nuvem, foi feito a conexão com mosquitto, para preparar as informações de conexão a ele, deixamos variáveis prontas
+```C
+const char* mqttServer = "test.mosquitto.org";              //servidor
+const char* mqtt_username = NULL;                           //usuário
+const char* mqtt_password = NULL;                           //senha
+const int mqttPort = 1883;                                  //porta
+const char* mqttTopicSub ="htrsly/sensor/temperatura";      //tópico que sera assinado
+int ultimoEnvioMQTT = 0;                                    // inicializa com zero  
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+```
+
+Criamos variáveis também para cada pino de LED de alerta, que fica no dispositivo físico:
+```C
+// Define o pino 8 para o alerta de temperatura baixa
+int AlertaVerde=5;
+// Define o pino 12 para o alerta de temperatura média
+int AlertaAmarelo=4;
+// Define o pino 13 para o alerta de temperatura alta
+int AlertaVermelho=0;
+```
+#### Pré Configuração
+
+
+Para início da configuração, os pinos foram classificados como verde, amarelo e verde, conforme as cores do leds disponíveis no laboratório, eles estão sendo acionados para funcionar como modo de saída. Nessa ocasião, faz a inicialização do serial e o sensor de temperatura
+```C
+void setup() {
+  pinMode(AlertaVerde, OUTPUT);
+  pinMode(AlertaAmarelo, OUTPUT);
+  pinMode(AlertaVermelho, OUTPUT);
+  Serial.begin(115200);
+  dht.begin();
+
+```
+
+Fazemos a inicialização da internet, usando como parâmetro o login e senha
+Após a inicialização do wifi, torna-se necessário que faça o teste de conexão, conforme o quadro 4, onde o usuário pode saber se foi sucedido ou não. Verificando se o wi-fi conectado está diferente do status do wi-fi, considerando isso, enquanto estiver tentando fazer conexão, ele irá está imprimindo o ponto. Se estiver conectado, deve fazer impressão no serial do IP, o cliente utilizará os parâmetros de servidor, conectando com o servidor MQTT e também estará setando o callback, que tem como propósito fazer uso de outras funções. 
+Ainda nesse quadro, verificamos a conexão com ESP8266, se for sucesso, deve dizer que fez a conexão ao broker mqtt público, caso contrário, continuará tentando estabelecer a conexão.
+```C
+WiFi.begin(ssid, password); 
+ while (WiFi.status() != WL_CONNECTED) { //Enquanto estiver aguardando status da conexão
+    delay(1000);
+    Serial.print(".");                                     //Imprime pontos
+  }
+  Serial.println("");
+  Serial.println("WiFi Conectado");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());              //Função para exibir o IP da ESP8266  
+  client.setServer(mqttServer, mqttPort);
+  client.setCallback(callback);
+
+   while (!client.connected()) {
+      String client_id = "esp8266-client-";
+      client_id += String(WiFi.macAddress());
+      Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
+      if (client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {
+      } else {
+          Serial.print("failed with state ");
+          Serial.print(client.state());
+          delay(2000);
+      }
+  }
+}
+```
+#### Loop
+
+O Loop ficará executando o comando de fazer leitura do sensor continuamente, com um intervalo de 2 segundos.
+```C
+void loop() {
+  enviaDHT();
+  delay(2000); 
+  client.loop();
+}
+```
+
+Uma função callback é uma função passada a outra função como argumento, que é então invocado dentro da função externa para completar algum tipo de rotina ou ação, no nosso caso, verifica a integridade da conexão com o protocolo MQTT.
+```C
+void callback(char *topic, byte *payload, unsigned int length) {
+    Serial.print("Message arrived in topic: ");
+    Serial.println(topic);
+    Serial.print("Message:");
+    for (int i = 0; i < length; i++) {
+        Serial.print((char) payload[i]);
+    }
+    Serial.println();
+    Serial.println("-----------------------");
+}
+```
+
+Aqui estamos fazendo leitura dos dados de temperatura, umidade e o índice de calor, os LEDs também acenderão de acordo com o valor recebido, se estiver com algum problema na leitura, todos os LEDs acenderão, caso contrário, acenderá o LED de acordo com o grau de Calor do índice de temperatura, o qual nós colocamos o nome de “ITU”.
+```C
+void enviaDHT(){
+ 
+  char MsgUmidadeMQTT[10];
+  char MsgTemperaturaMQTT[10];
+  char MsgITU[10];
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  float itu = dht.computeHeatIndex(t, h, false); 
+ 
+  if (isnan(t) || isnan(h)) 
+  {
+    digitalWrite(AlertaVerde, HIGH);
+    digitalWrite(AlertaAmarelo, HIGH);
+    digitalWrite(AlertaVermelho, HIGH);
+    Serial.println(F("Failed to read from DHT sensor!"));
+  } else {
+
+   if (itu > 90){
+      digitalWrite(AlertaVerde, LOW);
+      digitalWrite(AlertaAmarelo, LOW);
+      digitalWrite(AlertaVermelho, HIGH);
+  
+    
+    } else if (itu > 75){
+      digitalWrite(AlertaVerde, LOW);
+      digitalWrite(AlertaAmarelo, HIGH);
+      digitalWrite(AlertaVermelho, LOW);
+    } else {
+      digitalWrite(AlertaVerde, HIGH);
+      digitalWrite(AlertaAmarelo, LOW);
+      digitalWrite(AlertaVermelho, LOW);
+    }
+    //
+      Serial.print("Umidade: ");
+      Serial.print(h);
+      Serial.print(" %t\n");
+      Serial.print("Temperatura: ");
+      Serial.print(t);
+      Serial.println(" *C");
+      Serial.println(itu);
+    //
+    sprintf(MsgUmidadeMQTT,"%f",h);
+    client.publish("htrsly/sensor/umidade", MsgUmidadeMQTT);
+    sprintf(MsgTemperaturaMQTT,"%f",t);
+    client.publish("htrsly/sensor/temperatura", MsgTemperaturaMQTT);
+    sprintf(MsgITU,"%f",itu);
+    client.publish("htrsly/sensor/itu", MsgITU);
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Anexos
+
+**Código Completo do Arduino (ESP8266)**
+```C
+// Importando as bibliotecas
+#include<ESP8266WiFi.h> //Biblioteca para funcionamento do WiFi do ESP
+#include <PubSubClient.h>
+
+#include "DHT.h"
+
+//definindo o sensor
+#define DHTPIN 2 // pino que estamos conectado
+#define DHTTYPE DHT11 // DHT 11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+// conectando ao wifi
+const char* ssid = "v2g";  // Rede WiFi
+const char* password = "qwertyuiop";
+
+//informações do broker MQTT - Verifique as informações geradas pelo CloudMQTT
+const char* mqttServer = "test.mosquitto.org";   //server
+const char* mqtt_username = NULL;              //user
+const char* mqtt_password = NULL;      //password
+const int mqttPort = 1883;                     //port
+const char* mqttTopicSub ="htrsly/sensor/temperatura";            //tópico que sera assinado
+int ultimoEnvioMQTT = 0;
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+// Define o pino 8 para o alerta de temperatura baixa
+int AlertaVerde=5;
+// Define o pino 12 para o alerta de temperatura alta
+int AlertaAmarelo=4;
+// Define o pino 13 para o alerta de temperatura alta
+int AlertaVermelho=0;
+
+
+
+
+
+void setup() {
+// put your setup code here, to run once:
+  pinMode(AlertaVerde, OUTPUT);
+  pinMode(AlertaAmarelo, OUTPUT);
+  pinMode(AlertaVermelho, OUTPUT);
+  Serial.begin(115200);
+  //pinMode(Som, OUTPUT);
+  //pinMode(4, INPUT);
+  dht.begin();
+  
+  WiFi.begin(ssid, password); //Inicialização da comunicação Wi-Fi
+  //Verificação da conexão
+  while (WiFi.status() != WL_CONNECTED) { //Enquanto estiver aguardando status da conexão
+    delay(1000);
+    Serial.print("."); //Imprime pontos
+  }
+  Serial.println("");
+  Serial.println("WiFi Conectado");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP()); //Função para exibir o IP da ESP
+  
+  client.setServer(mqttServer, mqttPort);
+  client.setCallback(callback);
+
+   while (!client.connected()) {
+      String client_id = "esp8266-client-";
+      client_id += String(WiFi.macAddress());
+      Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
+      if (client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {
+      } else {
+          Serial.print("failed with state ");
+          Serial.print(client.state());
+          delay(2000);
+      }
+  }
+}
+
+void loop() {
+  Serial.print("teste1");
+
+  enviaDHT();
+  delay(2000);
+  
+  client.loop();
+}
+
+void callback(char *topic, byte *payload, unsigned int length) {
+    Serial.print("Message arrived in topic: ");
+    Serial.println(topic);
+    Serial.print("Message:");
+    for (int i = 0; i < length; i++) {
+        Serial.print((char) payload[i]);
+    }
+    Serial.println();
+    Serial.println("-----------------------");
+}
+
+//função para leitura do DHT11
+void enviaDHT(){
+ 
+  char MsgUmidadeMQTT[10];
+  char MsgTemperaturaMQTT[10];
+  char MsgITU[10];
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+
+  float itu = dht.computeHeatIndex(t, h, false);
+ 
+  
+  if (isnan(t) || isnan(h)) 
+  {
+    digitalWrite(AlertaVerde, HIGH);
+    digitalWrite(AlertaAmarelo, HIGH);
+    digitalWrite(AlertaVermelho, HIGH);
+    Serial.println(F("Failed to read from DHT sensor!"));
+  } else {
+
+   if (itu > 90){
+      digitalWrite(AlertaVerde, LOW);
+      digitalWrite(AlertaAmarelo, LOW);
+      digitalWrite(AlertaVermelho, HIGH);
+      
+    } else if (itu > 75){
+      digitalWrite(AlertaVerde, LOW);
+      digitalWrite(AlertaAmarelo, HIGH);
+      digitalWrite(AlertaVermelho, LOW);
+    } else {
+      digitalWrite(AlertaVerde, HIGH);
+      digitalWrite(AlertaAmarelo, LOW);
+      digitalWrite(AlertaVermelho, LOW);
+    }
+    //
+      Serial.print("Umidade: ");
+      Serial.print(h);
+      Serial.print(" %t\n");
+      Serial.print("Temperatura: ");
+      Serial.print(t);
+      Serial.println(" *C");
+      Serial.println(itu);
+    //
+    sprintf(MsgUmidadeMQTT,"%f",h);
+    client.publish("htrsly/sensor/umidade", MsgUmidadeMQTT);
+    sprintf(MsgTemperaturaMQTT,"%f",t);
+    client.publish("htrsly/sensor/temperatura", MsgTemperaturaMQTT);
+    sprintf(MsgITU,"%f",itu);
+    client.publish("htrsly/sensor/itu", MsgITU);
+  }
+}
 ```
 
 
