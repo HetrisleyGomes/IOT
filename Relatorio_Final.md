@@ -12,7 +12,11 @@ Parnamirim – RN / 2022
 - [Introdução](#introdução)
 - [Desenvolvimento](#desenvolvimento)
 - [Metodologia](#metodologia)
-- [Conclusões](#conclusões)
+  - [Elementos Utilizados](#elementos-utilizados)
+  - [Projeto Arduino](#projeto-arduino)
+  - [Projeto Node-Red](#projeto-node-red)
+  - [Codifição do Projeto](#codifição-do-projeto)
+  - [OS Dados](#os-dados)
 - [Considerações Finais](#considerações-finais)
 - [Referências](#referências)
 - [Anexos](#anexo)
@@ -321,30 +325,6 @@ NODERED (org.). Node-RED: low-code programming for event-driven applications. Lo
 
 UFPR. ÍNDICES DE DESCONFORTO HUMANO. Disponível em: https://fisica.ufpr.br/grimm/aposmeteo/cap3/cap3-4.html. Acesso em: 02 set. 2022.
 USINAINFO (org.). ESP8266. Disponível em: https://www.usinainfo.com.br/esp8266-610#. Acesso em: 01 set. 2022.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ## Anexos
@@ -929,7 +909,6 @@ void enviaDHT(){
         "hidden": false
     }
 ]
-
 ```
 
 
