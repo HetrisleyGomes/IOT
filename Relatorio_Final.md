@@ -253,7 +253,19 @@ void enviaDHT(){
 }
 ```
 
+### Os Dados:
+Após a configuração elaborada anteriormente, caso sucedido, podemos observar o comportamento no serial do arduino, conforme a figura 06, onde está sendo visualizado a umidade em termos percentuais, a temperatura em Celsius e o índice de temperatura e umidade (ITU). 
 
+Com os dados lidos pelo sensor, e enviados pelo MQTT até o Node Red, fomos capaz de criar um Dashboard com os dados recebidos
+
+
+Figura 12: Leitura em ambiente gráfico
+
+Fonte: Autoria própria (2022)
+
+O protótipo físico funcionando conectado ao computador do laboratório com o ESP8266, como segue a figura 13:
+
+Fonte: Autoria própria (2022)
 
 
 
