@@ -1,3 +1,17 @@
+# PROJETO SENSOR DE TEMPERATURA E UMIDADE
+**INSTITUTO FEDERAL DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA DO RIO GRANDE DO NORTE**
+
+Alunos: ***ALAN ALVES DA SILVA*** e ***HETRISLEY DA SILVA GOMES***
+
+Discente: ***Prof. Dr. Valerio Gutemberg de Medeiros Junior***
+
+Parnamirim – RN / 2022
+
+**SÚMARIO:**
+
+
+
+---
 ## INTRODUÇÃO
 Hoje em dia, as pessoas prezam por um bem-estar e estarem seguras seja qual espaço que estejam requerendo o bom tratamento ou estando em um lugar que elas se sintam à vontade, diante disso, elas podem contar com o apoio da Internet das Coisas, que segundo Bertoncello (2020), são dispositivos conectados à internet que enviam dados para serem manipulados, visando sempre que possível trazer melhores retornos para os usuários.
 
@@ -258,15 +272,49 @@ Após a configuração elaborada anteriormente, caso sucedido, podemos observar 
 
 Com os dados lidos pelo sensor, e enviados pelo MQTT até o Node Red, fomos capaz de criar um Dashboard com os dados recebidos
 
+Figura 01: Leitura em ambiente gráfico
 
-Figura 12: Leitura em ambiente gráfico
-
-Fonte: Autoria própria (2022)
-
-O protótipo físico funcionando conectado ao computador do laboratório com o ESP8266, como segue a figura 13:
+<img src="/images/Dashboard_node.PNG" style="width: 500px"/>
 
 Fonte: Autoria própria (2022)
 
+O protótipo físico funcionando conectado ao computador do laboratório com o ESP8266, como segue a figura 02:
+
+<img src="/images/Aparelho.PNG" style="width: 500px"/>
+
+Fonte: Autoria própria (2022)
+
+## CONSIDERAÇÕES FINAIS
+
+Considerando o objetivo inicial do projeto de elaborar a construção de protótipo que possa retornar a temperatura e umidade para servir de alerta para manter a hidratação, acreditamos que fomos bem sucedidos.
+
+Não foi considerado uma tarefa fácil, tivemos que obter conhecimentos teóricos a respeito da Internet das Coisas e estudar sobre o funcionamento sobre sensores, especificamente a respeito da temperatura e umidade, capturados por meio do DHT11, além disso, passando por várias falhas e ajustes para fazer a entrega básica com a conexão com internet e uso do MQTT e Node-Red.
+
+Como de costume, ainda falta alguns ajustes e implementações, que ficam como projetos futuros como o uso do botão e o acionamento de alarme,  o primeiro seria útil para quando for acionado o alerta vermelho, acionaria o alarme e o usuário tivesse capacidade de desligar o alarme por meio do botão.
+
+## REFERÊNCIA
+BERTONCELLO, Soraya Damasio. IoT: sensores que facilitam a vida. 2020. Disponível em: https://www.novus.com.br/blog/artigo-iot-sensores-que-facilitam-a-vida/. Acesso em: 24 jun. 2022.
+
+BLOGDAROBOTICA (org.). Medindo temperatura e umidade usando o sensor DHT11. 2020. Disponível em: https://www.blogdarobotica.com/2020/10/29/medindo-temperatura-e-umidade-usando-o-sensor-dht11/. Acesso em: 01 set. 2022.
+
+CANALTECH (org.). O que é Arduíno? 2015. Disponível em: https://canaltech.com.br/hardware/o-que-e-arduino/. Acesso em: 01 set. 2022.
+
+CASADAROBOTICA (org.). Protoboard 830 Furos. Disponível em: https://www.casadarobotica.com/prototipagem-e-ferramentas/prototipagem/protoboard/protoboard-830-furos-pontos. Acesso em: 01 set. 2022.
+
+FILIPEFLOP (org.). Sensor de Umidade e Temperatura DHT11. Disponível em: https://www.filipeflop.com/produto/sensor-de-umidade-e-temperatura-dht11/. Acesso em: 01 set. 2022.
+
+IMASTERS (org.). Servidor Eclipse Mosquitto MQTT na Nuvem: como criar uma rede iot pessoal. Como Criar uma Rede IoT Pessoal. Disponível em: https://imasters.com.br/cloud/servidor-eclipse-mosquitto-mqtt-na-nuvem-como-criar-uma-rede-iot-pessoal. Acesso em: 01 set. 2022.
+
+KALATEC (org.). Como o Protocolo MQTT funciona e quais são as suas vantagens? Disponível em: https://blog.kalatec.com.br/protocolo-mqtt/. Acesso em: 01 set. 2022.
+
+MUNDODELÉTRICA (org.). O que é um LED? Disponível em: https://www.mundodaeletrica.com.br/o-que-e-um-led/. Acesso em: 01 set. 2022.
+
+MUNDODAELETRICA (org.). O que é um resistor? Disponível em: https://www.mundodaeletrica.com.br/o-que-e-um-resistor/. Acesso em: 01 set. 2022.
+
+NODERED (org.). Node-RED: low-code programming for event-driven applications. Low-code programming for event-driven applications. Disponível em: https://nodered.org/. Acesso em: 01 set. 2022.
+
+UFPR. ÍNDICES DE DESCONFORTO HUMANO. Disponível em: https://fisica.ufpr.br/grimm/aposmeteo/cap3/cap3-4.html. Acesso em: 02 set. 2022.
+USINAINFO (org.). ESP8266. Disponível em: https://www.usinainfo.com.br/esp8266-610#. Acesso em: 01 set. 2022.
 
 
 
@@ -444,6 +492,438 @@ void enviaDHT(){
     client.publish("htrsly/sensor/itu", MsgITU);
   }
 }
+```
+
+** Código do dashboard do nodered **
+```JSON
+[
+    {
+        "id": "962e794ab22e0aa9",
+        "type": "tab",
+        "label": "IoT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "eb2a9a4baf93b815",
+        "type": "mqtt in",
+        "z": "962e794ab22e0aa9",
+        "name": "Sensor_Temperatura",
+        "topic": "htrsly/sensor/temperatura",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "14245302f91be584",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 200,
+        "wires": [
+            [
+                "c5add9221b9ce4ef",
+                "8e69c099627e0fc9",
+                "3080777252909c1f"
+            ]
+        ]
+    },
+    {
+        "id": "d278d9fa5ac004e7",
+        "type": "mqtt in",
+        "z": "962e794ab22e0aa9",
+        "name": "Sensor_Umidade",
+        "topic": "htrsly/sensor/umidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "14245302f91be584",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 440,
+        "wires": [
+            [
+                "cdbf1258c8e1a115",
+                "99ab3d9a52a1d8f8",
+                "ca6cec5d10a57e4d"
+            ]
+        ]
+    },
+    {
+        "id": "3cf82d14b1654e09",
+        "type": "mqtt in",
+        "z": "962e794ab22e0aa9",
+        "name": "Indice de Temperatura/Humidade",
+        "topic": "htrsly/sensor/itu",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "14245302f91be584",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 310,
+        "y": 320,
+        "wires": [
+            [
+                "3f4acb78c4cd5806",
+                "53847adbc41d7faa"
+            ]
+        ]
+    },
+    {
+        "id": "8e69c099627e0fc9",
+        "type": "switch",
+        "z": "962e794ab22e0aa9",
+        "name": "alerta_temperatura",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "40",
+                "vt": "str"
+            },
+            {
+                "t": "gte",
+                "v": "27",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "27",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "6a4c7a20d9c094b8"
+            ],
+            [
+                "d09fdcdda18fa9d2"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "99ab3d9a52a1d8f8",
+        "type": "switch",
+        "z": "962e794ab22e0aa9",
+        "name": "alerta_umidade",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "60",
+                "vt": "str"
+            },
+            {
+                "t": "gte",
+                "v": "45",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "45",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 560,
+        "y": 440,
+        "wires": [
+            [],
+            [
+                "a960b5facd2611c1"
+            ],
+            [
+                "a09913529b42a396"
+            ]
+        ]
+    },
+    {
+        "id": "c5add9221b9ce4ef",
+        "type": "ui_gauge",
+        "z": "962e794ab22e0aa9",
+        "name": "Temperatura",
+        "group": "72c6ed31ece54e57",
+        "order": 1,
+        "width": 6,
+        "height": "4",
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "60",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 550,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "cdbf1258c8e1a115",
+        "type": "ui_gauge",
+        "z": "962e794ab22e0aa9",
+        "name": "Umidade",
+        "group": "72c6ed31ece54e57",
+        "order": 2,
+        "width": 6,
+        "height": "4",
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 540,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "6a4c7a20d9c094b8",
+        "type": "ui_toast",
+        "z": "962e794ab22e0aa9",
+        "position": "top left",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Temperaturas Alarmantes! Se hidrate!",
+        "name": "Alerta Temp Max",
+        "x": 850,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "d09fdcdda18fa9d2",
+        "type": "ui_toast",
+        "z": "962e794ab22e0aa9",
+        "position": "top left",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Temperaturas altas, lembre de se hiratar!",
+        "name": "Alerta Temp",
+        "x": 830,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a960b5facd2611c1",
+        "type": "ui_toast",
+        "z": "962e794ab22e0aa9",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Humidade Baixa, lembre de se hiratar!",
+        "name": "Alerta Umid",
+        "x": 830,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a09913529b42a396",
+        "type": "ui_toast",
+        "z": "962e794ab22e0aa9",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "Humidade baixíssima! Se hidrate!",
+        "name": "Alerta Umid Min",
+        "x": 840,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3f4acb78c4cd5806",
+        "type": "ui_chart",
+        "z": "962e794ab22e0aa9",
+        "name": "",
+        "group": "72c6ed31ece54e57",
+        "order": 6,
+        "width": 12,
+        "height": 6,
+        "label": "Indice de Calor",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 900,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "53847adbc41d7faa",
+        "type": "ui_text",
+        "z": "962e794ab22e0aa9",
+        "group": "72c6ed31ece54e57",
+        "order": 5,
+        "width": 12,
+        "height": 1,
+        "name": "ITU",
+        "label": "Indice de Temperatura e Umidade",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 870,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ca6cec5d10a57e4d",
+        "type": "ui_text",
+        "z": "962e794ab22e0aa9",
+        "group": "72c6ed31ece54e57",
+        "order": 4,
+        "width": 6,
+        "height": 1,
+        "name": "Umidade Valor",
+        "label": "Umidade",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 560,
+        "y": 500,
+        "wires": []
+    },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+    {
+        "id": "3080777252909c1f",
+        "type": "ui_text",
+        "z": "962e794ab22e0aa9",
+        "group": "72c6ed31ece54e57",
+        "order": 3,
+        "width": 6,
+        "height": 1,
+        "name": "Tempoeratura Valor",
+        "label": "Temperatura:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 570,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "14245302f91be584",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "https://test.mosquitto.org/",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "72c6ed31ece54e57",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "ed01f6537c153731",
+        "order": 1,
+        "disp": true,
+        "width": 12,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ed01f6537c153731",
+        "type": "ui_tab",
+        "name": "IOT",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
+
 ```
 
 
