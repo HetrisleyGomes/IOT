@@ -11,7 +11,6 @@ Parnamirim – RN / 2022
 
 - [Introdução](#introdução)
 - [Desenvolvimento](#desenvolvimento)
-- [Metodologia](#metodologia)
   - [Elementos Utilizados](#elementos-utilizados)
   - [Projeto Arduino](#projeto-arduino)
   - [Projeto Node-Red](#projeto-node-red)
